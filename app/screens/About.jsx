@@ -1,33 +1,49 @@
 import { useContext } from "react";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { ThemeContext } from "../Contexts/ThemeContext";
 
 export default function About() {
-    const {currentMode } = useContext(ThemeContext);
+  const { currentMode } = useContext(ThemeContext);
+  const isLight = currentMode === "false";
+
   return (
-    <View style={{ flex: 1 }}>
-      <Text style={{ color: "darkgray", fontSize: "22pt" }}>ABOUT</Text>
-      <View style={{ backgroundColor: currentMode==='false'?"dodgerblue":'black' }}>
-        <Text style={{ margin: "auto", color: "white", padding:5 }}>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim dolorum
-          aspernatur asperiores blanditiis hic maiores laudantium amet voluptate
-          vel! Iste at sint consequatur facere recusandae, temporibus quo
-          consequuntur cumque saepe. Aliquid labore optio quidem cupiditate quis
-          magni? Itaque, rem harum debitis, nostrum explicabo nobis
-          exercitationem ipsam minima soluta est labore earum laborum autem modi
-          obcaecati quaerat ratione illo voluptate voluptatibus. Maxime rerum
-          nemo laboriosam quam velit temporibus ab, odit sit eaque pariatur
-          expedita eligendi et quae. Corporis sit nisi voluptates ipsa illum
-          porro at, ratione, voluptas dolorum et tenetur incidunt? Commodi
-          minima, et itaque nobis perferendis mollitia cum ea ab exercitationem,
-          magni corrupti. Doloremque quidem inventore obcaecati sed omnis, ab
-          earum, praesentium iste eos voluptatem consequuntur numquam corporis
-          harum velit? Laborum numquam ut quos voluptates earum ad animi
-          perferendis non facilis provident debitis, necessitatibus et, tempore
-          odio porro iure perspiciatis esse. Dolorum, dicta repellat eius in
-          odit quisquam tempora minima.
+    <View style={[styles.page, { backgroundColor: isLight ? "#F5F8FF" : "#060912" }]}>
+      <View
+        style={[
+          styles.card,
+          {
+            backgroundColor: isLight ? "#FFFFFF" : "#0E1528",
+            borderColor: isLight ? "#D5E2FF" : "#1C294A",
+          },
+        ]}
+      >
+        <Text style={[styles.title, { color: isLight ? "#102044" : "#E2EBFF" }]}>ABOUT TODO•X</Text>
+        <Text style={[styles.body, { color: isLight ? "#33446F" : "#AABCE3" }]}>
+          This app now uses a futuristic interface focused on clarity, speed, and focus. Use Mission Board to add,
+          track, and remove tasks quickly with a clean neon-inspired style built for modern productivity.
         </Text>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+    padding: 18,
+  },
+  card: {
+    borderWidth: 1,
+    borderRadius: 18,
+    padding: 18,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "900",
+    marginBottom: 10,
+  },
+  body: {
+    fontSize: 15,
+    lineHeight: 24,
+  },
+});

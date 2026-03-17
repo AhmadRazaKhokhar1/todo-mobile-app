@@ -1,53 +1,74 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import { ThemeContext } from "../Contexts/ThemeContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 export default function Navbar() {
   const navigation = useNavigation();
-
   const { themeHandler, currentMode } = useContext(ThemeContext);
+  const isLight = currentMode === "false";
 
   return (
     <View
-      style={{
-        width: "100vw",
-        height: "8vh",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems:'center',
-        padding: 8,
-        paddingRight:15,
-        backgroundColor: `${currentMode==='false'?'dodgerblue':'black'}`,
-        borderBottomColor: "gray",
-        borderWidth: 1,
-        boxShadow: "5px 5px 5px gray",
-      }}
+      style={[
+        styles.wrapper,
+        {
+          backgroundColor: isLight ? "#EAF1FF" : "#090F1E",
+          borderBottomColor: isLight ? "#C7D9FF" : "#1C294A",
+        },
+      ]}
     >
-      <Text style={{ color: "white", fontWeight: "900" }}>TODO</Text>
+      <Text style={[styles.logo, { color: isLight ? "#0B1220" : "#E7EEFF" }]}>TODO•X</Text>
 
-      <View>
-        <Pressable onPress={() => themeHandler()}>
-          <Text style={{color:'white', userSelect:'none'}}>{currentMode === "false" ? "Dark Mode" : "Light Mode"}</Text>
-        </Pressable>
-      </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          width: "auto",
-          gap: 5,
-          margin: 12,
-        }}
-      >
+      <Pressable onPress={themeHandler} style={({ pressed }) => [styles.modeButton, pressed && styles.pressed]}>
+        <Text style={[styles.modeText, { color: isLight ? "#1C3FAA" : "#9BB0FF" }]}>
+          {isLight ? "Dark Mode" : "Light Mode"}
+        </Text>
+      </Pressable>
+
+      <View style={styles.links}>
         <Pressable onPress={() => navigation.navigate("Home")}>
-          <Text style={{ color: "white", fontWeight: "600" }}>Home</Text>
+          <Text style={[styles.linkText, { color: isLight ? "#102452" : "#C7D6FF" }]}>Home</Text>
         </Pressable>
         <Pressable onPress={() => navigation.navigate("About")}>
-          <Text style={{ color: "white", fontWeight: "600" }}>About</Text>
+          <Text style={[styles.linkText, { color: isLight ? "#102452" : "#C7D6FF" }]}>About</Text>
         </Pressable>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    minHeight: 70,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+  },
+  logo: {
+    fontWeight: "900",
+    letterSpacing: 1,
+  },
+  modeButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 18,
+    backgroundColor: "rgba(111,139,255,0.15)",
+  },
+  modeText: {
+    fontWeight: "700",
+    fontSize: 12,
+  },
+  links: {
+    flexDirection: "row",
+    gap: 14,
+  },
+  linkText: {
+    fontWeight: "700",
+  },
+  pressed: {
+    opacity: 0.75,
+  },
+});
