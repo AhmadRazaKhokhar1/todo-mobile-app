@@ -1,29 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Pressable,
-  ScrollView,
-  Keyboard,
-} from "react-native";
+import { useContext } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { ThemeContext } from "../Contexts/ThemeContext";
-import { db } from "../../firebase.config";
+import { useTodos } from "../hooks/useTodos";
 
-
-export default function Home() {
-  const { currentMode } = useContext(ThemeContext);
-  // style sheet
-  const styles = StyleSheet.create({
+const createStyles = (currentMode) =>
+  StyleSheet.create({
     todos: {
-      display: "flex",
-      justifyContent: "space-between",
       alignItems: "center",
-      borderBlockColor: "gray",
-      height: "auto",
-      width: "auto",
+      justifyContent: "space-between",
       marginTop: 55,
+      width: "100%",
+      paddingBottom: 24,
     },
     container: {
       flex: 1,
@@ -36,13 +23,11 @@ export default function Home() {
       fontSize: 25,
     },
     form: {
-      flex: 1 / 4,
       marginTop: 32,
-      display: "flex",
+      flexDirection: "row",
       justifyContent: "space-between",
       padding: 3,
       alignItems: "center",
-      flexDirection: "row",
       position: "absolute",
       zIndex: 99,
     },
@@ -51,68 +36,47 @@ export default function Home() {
       borderRadius: 12,
       padding: 8,
       width: 250,
-      margin: "5",
+      margin: 5,
     },
     button: {
-      backgroundColor: `${currentMode === "false" ? "dodgerblue" : "black"}`,
-      fontSize: 12,
-      color: "white",
+      backgroundColor: currentMode === "false" ? "dodgerblue" : "black",
       borderRadius: 15,
       padding: 12,
-      width: 50,
-      margin: 2,
+      minWidth: 60,
+      alignItems: "center",
+    },
+    todoCard: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      backgroundColor: currentMode === "false" ? "dodgerblue" : "black",
+      padding: 10,
+      borderRadius: 13,
+      alignItems: "center",
+      maxWidth: "80%",
+      minWidth: "80%",
+      marginTop: 12,
+    },
+    todoText: {
+      color: "white",
+      padding: 5,
+      flex: 1,
+    },
+    deleteButton: {
+      backgroundColor: "red",
+      padding: 5,
+      borderRadius: 8,
+    },
+    statusText: {
+      color: "black",
+      fontWeight: "800",
+      marginTop: 80,
     },
   });
-  const [isDeleting, setIsDeleting] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState([]);
-  //adding the todo
-  const addTodo = async () => {
-    if (!todo && todo === "") {
-      return alert("The field should not be empty! please try again");
-    }
-    const collectionRef = db.collection("todos");
-    await collectionRef.add({ todo });
-    setTodo("");
-    Keyboard.dismiss();
-    fetchTodos();
-    return;
-  };
-  //get todos
-  async function fetchTodos() {
-    try {
-      setIsLoading(true);
-      const collectionRef = db.collection('todos');
-      const data = await collectionRef.get();
-      console.log(data.docs)
-      setTodos(data.docs);
-      setIsLoading(false)
-      return;
-    } catch (error) {
-      alert("error while fetching the data!");
-      return;
-    }
-  }
-  useEffect(() => {
-    fetchTodos();
-  }, [])
-  //deleting the todo
-  const deleteTodo = async (id) => {
-    try {
-      setIsDeleting(id)
-      const collectionRef = db.collection('todos');
-      const docRef = collectionRef.doc(id);
-      await docRef.delete();
-      setIsDeleting(null);
-      fetchTodos();
-      return;
-    } catch (error) {
-      alert('There was an internal server \n error while deleting todo!');
-      setIsDeleting(false)
-      return;
-    }
-  };
+
+export default function Home() {
+  const { currentMode } = useContext(ThemeContext);
+  const { todo, setTodo, todos, isLoading, isSubmitting, deletingId, addTodo, deleteTodo } = useTodos();
+  const styles = createStyles(currentMode);
 
   return (
     <View style={styles.container}>
@@ -120,57 +84,40 @@ export default function Home() {
       <View style={styles.form}>
         <TextInput
           value={todo}
-          onChangeText={(value) => setTodo(value)}
+          onChangeText={setTodo}
           style={styles.field}
           inputMode="text"
+          placeholder="Add a todo"
         />
-        <View style={styles.button}>
-          <Pressable onPress={addTodo}>
-            <Text style={{ color: "white" }}>Add</Text>
-          </Pressable>
-        </View>
+        <Pressable style={styles.button} onPress={addTodo} disabled={isSubmitting}>
+          <Text style={{ color: "white" }}>{isSubmitting ? "..." : "Add"}</Text>
+        </Pressable>
       </View>
       <ScrollView
         contentContainerStyle={styles.todos}
-        scrollEnabled
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       >
-        {!isLoading ? todos?.map((todo) => {
-          return (
-            <View
-              key={todo.id}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                backgroundColor: `${currentMode === "false" ? "dodgerblue" : "black"
-                  }`,
-                padding: 10,
-                borderRadius: 13,
-                alignItems: "center",
-                maxWidth: "80%",
-                minWidth: "80%",
-                height: "auto",
-                marginTop: 12,
-              }}
-            >
-              <Text style={{ color: "white", padding: 5 }}>{isDeleting === todo.id ? <Text>Deleting.....</Text> : todo.data()?.todo}</Text>
+        {isLoading ? (
+          <Text style={styles.statusText}>Loading...</Text>
+        ) : (
+          todos.map((todoItem) => (
+            <View key={todoItem.id} style={styles.todoCard}>
+              <Text style={styles.todoText}>
+                {deletingId === todoItem.id ? "Deleting..." : todoItem.todo}
+              </Text>
               <Pressable
-                style={{ backgroundColor: "red", padding: 5 }}
-                onPress={() => deleteTodo(todo?.id)}
+                style={styles.deleteButton}
+                onPress={() => deleteTodo(todoItem.id)}
+                disabled={deletingId === todoItem.id}
               >
-                <Text style={{ color: "white", borderRadius: 12 }}>{isDeleting === todo.id ? <Text>Deleting.....</Text> : 'Delete'}</Text>
+                <Text style={{ color: "white" }}>
+                  {deletingId === todoItem.id ? "Deleting..." : "Delete"}
+                </Text>
               </Pressable>
             </View>
-          );
-        }) :
-          <View
-
-          >
-            <Text style={{ color: 'black', fontWeight: '800' }}>Loading.................</Text>
-          </View>
-        }
+          ))
+        )}
       </ScrollView>
     </View>
   );
