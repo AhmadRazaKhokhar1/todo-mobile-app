@@ -1,62 +1,62 @@
 # Codex Workflow (Linear-Driven)
 
-This document defines how Codex should execute work in this repository while maintaining code quality and predictable delivery.
+This document defines how Codex executes Linear issues in this repository with a structured, architecture-first workflow inspired by the operational style used in `openai/symphony`.
 
-## 1. Purpose
+## 1. Workflow Goal
 
-Use this workflow for Linear issues so each change is:
+For every Linear task, Codex must deliver:
 
-- scoped to the requested outcome,
-- aligned to the existing app architecture,
-- validated before release,
-- shipped with a complete Git and GitHub CLI trail.
+- a minimal, production-quality change,
+- architecture-aligned implementation,
+- explicit validation results,
+- completed release operations (`git`, `gh`, and Linear state handoff when configured).
 
 ## 2. Required Inputs
 
-Before implementation, confirm the following values are available:
+Before editing code, confirm:
 
-- Linear issue key and title (for example `TEC-21` / `Create docs`).
-- Target base branch.
-- Working branch name in `ISSUEKEY-short-kebab-title` format.
+- Linear issue key and title (example: `TEC-21` / `Create docs`),
+- target base branch,
+- working branch in `ISSUEKEY-short-kebab-title` format.
 
-Branch format example:
+Branch naming example:
 
 ```bash
 git checkout -b TEC-21-create-docs
 ```
 
-## 3. Architecture Alignment
+## 3. Architecture Contract
 
-Keep changes consistent with the repository structure:
+Keep changes aligned to the existing app boundaries:
 
 - `app/components/`: reusable presentational UI.
 - `app/screens/`: route-level screens.
 - `app/hooks/`: stateful UI/data logic.
-- `app/services/`: Firebase/external integration boundaries.
-- `app/Contexts/`: cross-cutting global providers.
+- `app/services/`: Firebase and external integration boundaries.
+- `app/Contexts/`: global cross-cutting providers.
 
-Rules:
+Implementation rules:
 
-- Keep screens thin; move async and data logic to hooks/services.
+- Keep screens thin; move async/data logic into hooks/services.
 - Do not call Firebase SDK directly from screens.
-- Keep naming conventions unchanged (`PascalCase` for components/screens, `camelCase` for hooks/services).
+- Preserve naming conventions (`PascalCase` for screens/components, `camelCase` for hooks/services).
 - Avoid unrelated refactors in the same issue.
 
-## 4. Execution Phases
+## 4. Execution Model
 
-### Phase A: Plan
+### Phase 1: Plan
 
-- Read issue requirements and repository instructions (`AGENTS.md`).
-- Identify smallest complete change.
-- Note risks and validation needs.
+- Read issue requirements and repository instructions in `AGENTS.md`.
+- Choose the smallest complete change set.
+- Identify validation and release requirements up front.
 
-### Phase B: Implement
+### Phase 2: Implement
 
-- Make focused edits only for the issue scope.
-- Keep docs and workflow instructions concise and operational.
-- If process or architecture expectations change, update `AGENTS.md` in the same PR.
+- Apply focused edits only for the requested scope.
+- Prefer clear, maintainable docs and code over broad rewrites.
+- If workflow or architecture expectations change, update `AGENTS.md` in the same PR.
 
-### Phase C: Validate
+### Phase 3: Validate
 
 Run from repository root:
 
@@ -66,32 +66,32 @@ npm run lint
 npm start -- --non-interactive
 ```
 
-If `npm run lint` is not available, document that gap in the PR and include runtime validation evidence.
+If `npm run lint` is unavailable, record the gap in the PR with substitute validation evidence.
 
-## 5. Release Checklist (Git + GH CLI)
+## 5. Release Operations (Mandatory)
 
-After implementation and validation:
+After implementation and validation, execute release steps in order:
 
-```bash
-git status
-git add -A
-git commit -m "TEC-21: Create docs"
-git push -u origin TEC-21-create-docs
-gh pr create --title "TEC-21: Create docs" --body-file /tmp/pr_body.md
-```
+1. `git status`
+2. `git add -A`
+3. `git commit -m "TEC-21: Create docs"` (only if staged changes exist)
+4. `git push -u origin <working-branch>`
+5. PR check/create with GitHub CLI (`gh` or orchestrator-provided binary)
+6. Linear state update script when both issue/state IDs are configured by orchestration
 
-PR content must include:
+Task completion is reached only after push + PR handling + Linear state update (when configured) succeed.
 
-- What changed.
-- Why it changed.
-- Validation steps and results.
-- Known gaps or follow-up tasks.
+## 6. PR Content Standard
 
-## 6. PR Body Template (Docs/Process Work)
+Every PR should include:
 
-Use concise, factual language. Include the following baseline points when relevant:
+- what changed,
+- why it was needed,
+- validation commands and outcomes,
+- known gaps or follow-up work.
 
-- This documentation helps Codex maintain code quality.
-- Branch naming follows the Linear issue identifier and title.
-- Delivery includes commit, push, and PR creation through `git` and `gh`.
-- Structure follows a workflow-oriented, sectioned style inspired by `openai/symphony` documentation patterns.
+For docs/process issues, include:
+
+- this documentation enables Codex to maintain code quality,
+- branch naming follows Linear issue key + title,
+- delivery includes commit, push, and PR creation via `git` and `gh`.
