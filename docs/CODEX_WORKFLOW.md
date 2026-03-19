@@ -1,36 +1,62 @@
-# Codex Workflow Guide
+# Codex Workflow (Linear-Driven)
 
-This guide defines how Codex should execute Linear issues in this repository while preserving code quality and release consistency.
+This document defines how Codex should execute work in this repository while maintaining code quality and predictable delivery.
 
-## 1. Scope and Change Design
+## 1. Purpose
 
-- Keep changes tightly aligned to the Linear issue.
-- Prefer the smallest complete implementation over broad refactors.
-- Follow the current architecture:
-  - `app/components/` for reusable UI.
-  - `app/screens/` for route-level screens.
-  - `app/hooks/` for stateful logic.
-  - `app/services/` for Firebase and external integrations.
-  - `app/Contexts/` for cross-cutting app context.
+Use this workflow for Linear issues so each change is:
 
-## 2. Quality Guardrails
+- scoped to the requested outcome,
+- aligned to the existing app architecture,
+- validated before release,
+- shipped with a complete Git and GitHub CLI trail.
 
-- Keep async/data logic out of screens when possible; place it in hooks/services.
-- Do not call Firebase SDK directly from screens; use `app/services/*`.
-- Preserve naming conventions:
-  - `PascalCase` for screens/components.
-  - `camelCase` for hooks/services.
-- Avoid unrelated file edits in the same issue.
+## 2. Required Inputs
 
-## 3. Branch Naming
+Before implementation, confirm the following values are available:
 
-For Linear issues, create branches with the issue key and short kebab-case title:
+- Linear issue key and title (for example `TEC-21` / `Create docs`).
+- Target base branch.
+- Working branch name in `ISSUEKEY-short-kebab-title` format.
+
+Branch format example:
 
 ```bash
 git checkout -b TEC-21-create-docs
 ```
 
-## 4. Validation Sequence
+## 3. Architecture Alignment
+
+Keep changes consistent with the repository structure:
+
+- `app/components/`: reusable presentational UI.
+- `app/screens/`: route-level screens.
+- `app/hooks/`: stateful UI/data logic.
+- `app/services/`: Firebase/external integration boundaries.
+- `app/Contexts/`: cross-cutting global providers.
+
+Rules:
+
+- Keep screens thin; move async and data logic to hooks/services.
+- Do not call Firebase SDK directly from screens.
+- Keep naming conventions unchanged (`PascalCase` for components/screens, `camelCase` for hooks/services).
+- Avoid unrelated refactors in the same issue.
+
+## 4. Execution Phases
+
+### Phase A: Plan
+
+- Read issue requirements and repository instructions (`AGENTS.md`).
+- Identify smallest complete change.
+- Note risks and validation needs.
+
+### Phase B: Implement
+
+- Make focused edits only for the issue scope.
+- Keep docs and workflow instructions concise and operational.
+- If process or architecture expectations change, update `AGENTS.md` in the same PR.
+
+### Phase C: Validate
 
 Run from repository root:
 
@@ -40,9 +66,9 @@ npm run lint
 npm start -- --non-interactive
 ```
 
-If `npm run lint` is unavailable, note this in the PR body and include local runtime validation.
+If `npm run lint` is not available, document that gap in the PR and include runtime validation evidence.
 
-## 5. Release Steps (Git + GitHub CLI)
+## 5. Release Checklist (Git + GH CLI)
 
 After implementation and validation:
 
@@ -50,22 +76,22 @@ After implementation and validation:
 git status
 git add -A
 git commit -m "TEC-21: Create docs"
-git push -u origin <branch-name>
+git push -u origin TEC-21-create-docs
 gh pr create --title "TEC-21: Create docs" --body-file /tmp/pr_body.md
 ```
 
-PR body should include:
+PR content must include:
 
 - What changed.
-- Why the change was needed.
-- Validation steps and outcomes.
-- Gaps and follow-up tasks.
+- Why it changed.
+- Validation steps and results.
+- Known gaps or follow-up tasks.
 
-## 6. PR Content Baseline
+## 6. PR Body Template (Docs/Process Work)
 
-When writing PR descriptions for docs/process work, use concise and factual language and include this task context:
+Use concise, factual language. Include the following baseline points when relevant:
 
-- The docs help Codex maintain code quality.
-- The process includes branch naming tied to Linear issue titles.
-- The process includes commit, push, and PR creation through `git` and `gh`.
-- The structure should align with the architecture style used in `openai/symphony` (clear sections, workflow-oriented guidance, and explicit operational steps).
+- This documentation helps Codex maintain code quality.
+- Branch naming follows the Linear issue identifier and title.
+- Delivery includes commit, push, and PR creation through `git` and `gh`.
+- Structure follows a workflow-oriented, sectioned style inspired by `openai/symphony` documentation patterns.
