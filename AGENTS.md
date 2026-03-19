@@ -79,3 +79,7 @@ Use concise, factual summaries and keep scope tightly aligned to the Linear issu
 ## Docs Update Policy
 
 When architecture, workflow, or quality expectations change, update this file in the same PR so Codex instructions stay current.
+
+## Additional Docs
+
+- `docs/CODEX_WORKFLOW.md`: Codex execution workflow for Linear issues, quality guardrails, validation, and release steps.
