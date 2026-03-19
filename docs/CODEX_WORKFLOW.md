@@ -1,66 +1,66 @@
 # Codex Workflow (Linear-Driven)
 
-This document defines how Codex executes Linear issues in this repository using a structure inspired by `openai/symphony`: explicit inputs, strict phase gates, clear ownership boundaries, and release-complete delivery.
+This document defines the Codex execution contract for this repository, using a Symphony-inspired structure: clear inputs, phase gates, explicit release ownership, and done-only-when-released delivery.
 
-## 1. Execution Contract
+## 1. Objective
 
-For every issue, Codex must deliver all of the following:
+For each Linear issue, Codex must deliver:
 
-- Minimal, production-quality changes that stay in issue scope.
-- Architecture-aligned implementation for this Expo/Firebase app.
-- Validation evidence for required checks.
-- Completed release operations (`git` status/add/commit/push, `gh` PR flow, and Linear state update when configured).
+- A minimal production-quality change in issue scope.
+- Adherence to repository architecture and conventions.
+- Validation evidence (or explicit validation gaps).
+- Release completion with `git` + `gh` + Linear state transition when configured.
 
-Work is incomplete until release steps succeed.
+Work is not complete after coding. It is complete only after release steps succeed.
 
-## 2. Required Inputs
+## 2. Inputs and Branch Contract
 
 Before editing, confirm:
 
-- Issue identifier and title (example: `TEC-21` / `Create docs`).
+- Linear issue key and title (example: `TEC-21` / `Create docs`).
 - Target base branch.
-- Working branch naming contract: `ISSUEKEY-short-kebab-title`.
+- Working branch naming pattern: `ISSUEKEY-short-kebab-title`.
 
-Branch example:
+Example:
 
 ```bash
 git checkout -b TEC-21-create-docs
 ```
 
-If orchestration provides `ORCH_BRANCH`, use it for all release commands.
+If orchestration sets `ORCH_BRANCH`, use that value for push/PR commands.
 
-## 3. Architecture Boundaries
+## 3. Repository Boundaries
 
-Follow repository boundaries:
+Respect feature-layer boundaries:
 
 - `app/components/`: reusable presentational UI.
 - `app/screens/`: route-level screens.
 - `app/hooks/`: stateful UI/data logic.
 - `app/services/`: Firebase/external integrations.
-- `app/Contexts/`: cross-cutting providers.
+- `app/Contexts/`: app-wide providers.
 
-Guardrails:
+Quality guardrails:
 
-- Keep route screens thin; put async/data logic in hooks/services.
-- Do not call Firebase SDK directly from screens.
-- Preserve naming conventions (`PascalCase` components/screens, `camelCase` hooks/services).
+- Keep screens thin; move async and data flows into hooks/services.
+- Keep Firebase SDK calls inside `app/services/*`.
+- Preserve naming style (`PascalCase` for screens/components, `camelCase` for hooks/services).
 - Avoid unrelated refactors.
 
 ## 4. Phase Gates
 
-### Phase A: Plan
+### A) Plan
 
-- Read issue details and `AGENTS.md`.
+- Read the issue and `AGENTS.md`.
 - Choose the smallest complete implementation.
-- Confirm validation and release commands.
+- Confirm validation and release commands before editing.
 
-### Phase B: Implement
+### B) Implement
 
-- Apply focused edits aligned to issue scope.
-- Keep docs/code concise and maintainable.
-- Update `AGENTS.md` in the same PR when process expectations change.
+- Apply focused changes only for the issue.
+- Keep docs and code concise and maintainable.
+- Update `AGENTS.md` in the same PR if process expectations changed.
 
-### Phase C: Validate
+### C) Validate
 
 Run from repository root:
 
@@ -70,37 +70,37 @@ npm run lint
 npm start -- --non-interactive
 ```
 
-If `npm run lint` is unavailable, record that gap in the PR and provide substitute validation.
+If `npm run lint` is unavailable, document that gap and provide substitute validation.
 
-### Phase D: Release
+### D) Release
 
-Execute in order:
+Execute in this order:
 
 1. `git status`
 2. `git add -A`
-3. `git commit -m "TEC-21: Create docs"` when staged changes exist
-4. `git push -u origin <working-branch>`
-5. Check for existing PR; create with `gh` if missing
-6. Run orchestration Linear state transition script when both required IDs are configured
+3. `git commit -m "TEC-21: Create docs"` (only when staged changes exist)
+4. `git push -u origin "$ORCH_BRANCH"`
+5. Check for existing PR and create one with `gh` when missing
+6. If both orchestration IDs are set, run `python3 "$ORCH_LINEAR_STATE_SCRIPT"`
 
-## 5. Pull Request Standard
+## 5. PR Content Standard
 
-Every PR must include:
+Each PR must include:
 
 - What changed.
 - Why it was needed.
-- Validation steps and outcomes.
+- Validation commands and outcomes.
 - Known gaps or follow-up work.
 
-For process/documentation issues, explicitly mention:
+For process/docs issues, include these points explicitly:
 
-- Documentation improves Codex code-quality execution.
-- Branch naming follows Linear issue format.
-- Delivery included commit, push, and PR creation with `git` and `gh`.
+- Docs improve Codex code-quality execution.
+- Branch naming follows the Linear issue pattern.
+- Delivery included `git` commit/push and `gh` PR creation.
 
 ## 6. PR Body Template
 
-Use this when creating the PR body file:
+Use this template when creating the PR body file:
 
 ```md
 Automated PR for Linear **TEC-21**
@@ -112,9 +112,9 @@ Automated PR for Linear **TEC-21**
 - <why this was needed>
 
 ## Validation
-- `npm ci` : <result>
-- `npm run lint` : <result>
-- `npm start -- --non-interactive` : <result>
+- `npm ci`: <result>
+- `npm run lint`: <result>
+- `npm start -- --non-interactive`: <result>
 
 ## Notes
 - <known gaps or follow-up tasks>
