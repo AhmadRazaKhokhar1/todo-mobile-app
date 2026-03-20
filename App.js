@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
 import Home from "./app/screens/Home";
 import About from "./app/screens/About";
+import Focus from "./app/screens/Focus";
+import Insights from "./app/screens/Insights";
 import Navbar from "./app/components/Navbar";
 import { ThemeContext } from "./app/Contexts/ThemeContext";
 
@@ -101,6 +103,8 @@ export default function App() {
               <Navbar />
               <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Focus" component={Focus} />
+                <Stack.Screen name="Insights" component={Insights} />
                 <Stack.Screen name="About" component={About} />
               </Stack.Navigator>
             </View>
