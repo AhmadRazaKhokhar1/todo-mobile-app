@@ -9,6 +9,7 @@ import About from "./app/screens/About";
 import Focus from "./app/screens/Focus";
 import Insights from "./app/screens/Insights";
 import Priorities from "./app/screens/Priorities";
+import Planner from "./app/screens/Planner";
 import Navbar from "./app/components/Navbar";
 import { ThemeContext } from "./app/Contexts/ThemeContext";
 
@@ -107,6 +108,7 @@ export default function App() {
                 <Stack.Screen name="Focus" component={Focus} />
                 <Stack.Screen name="Insights" component={Insights} />
                 <Stack.Screen name="Priorities" component={Priorities} />
+                <Stack.Screen name="Planner" component={Planner} />
                 <Stack.Screen name="About" component={About} />
               </Stack.Navigator>
             </View>
