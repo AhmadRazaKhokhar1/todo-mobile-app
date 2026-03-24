@@ -57,11 +57,11 @@ module.exports = {
           {
             patterns: [
               {
-                group: ["../hooks/*", "app/hooks/*"],
+                group: ["../hooks/*", "../../hooks/*", "../../../hooks/*", "app/hooks/*"],
                 message: "Components should receive data/actions via props instead of using hooks directly.",
               },
               {
-                group: ["../services/*", "app/services/*"],
+                group: ["../services/*", "../../services/*", "../../../services/*", "app/services/*"],
                 message: "Components should not call services directly.",
               },
             ],
@@ -77,7 +77,7 @@ module.exports = {
           {
             patterns: [
               {
-                group: ["../services/*", "app/services/*"],
+                group: ["../services/*", "../../services/*", "../../../services/*", "app/services/*"],
                 message: "Screens should compose hooks instead of calling services directly.",
               },
             ],
@@ -95,10 +95,20 @@ module.exports = {
               {
                 group: [
                   "../components/*",
+                  "../../components/*",
+                  "../../../components/*",
                   "../screens/*",
+                  "../../screens/*",
+                  "../../../screens/*",
                   "../navigation/*",
+                  "../../navigation/*",
+                  "../../../navigation/*",
                   "../hooks/*",
+                  "../../hooks/*",
+                  "../../../hooks/*",
                   "../Contexts/*",
+                  "../../Contexts/*",
+                  "../../../Contexts/*",
                   "app/components/*",
                   "app/screens/*",
                   "app/navigation/*",
