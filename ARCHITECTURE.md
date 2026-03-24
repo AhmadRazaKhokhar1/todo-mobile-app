@@ -18,7 +18,7 @@ This repository uses a feature-layered React Native (Expo) architecture with cle
 - `AppNavigator` owns `NavigationContainer` and frame-level shell composition.
 - `RootNavigator` defines screen registration and route graph.
 - `Home` binds `useTodos` data/actions into `TodoDashboard` props.
-- `About` is a route-level informational screen.
+- `About` is a thin route-level container that composes `AboutOverview`.
 - `todoService` is the single Firebase todo data access boundary.
 - `themeService` is the single AsyncStorage theme persistence boundary.
 
