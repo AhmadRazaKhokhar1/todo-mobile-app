@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Keyboard } from "react-native";
+import { Alert, Keyboard } from "react-native";
 import { createTodo, removeTodo, subscribeToTodos } from "../services/todoService";
 
 export function useTodos() {
@@ -17,7 +17,7 @@ export function useTodos() {
       },
       () => {
         setIsLoading(false);
-        alert("Error while fetching todos. Please try again.");
+        Alert.alert("Unable to load todos", "Error while fetching todos. Please try again.");
       }
     );
 
@@ -28,7 +28,7 @@ export function useTodos() {
     const trimmedTodo = todo.trim();
 
     if (!trimmedTodo) {
-      alert("The field should not be empty! Please try again.");
+      Alert.alert("Todo required", "The field should not be empty. Please try again.");
       return;
     }
 
@@ -38,7 +38,7 @@ export function useTodos() {
       setTodo("");
       Keyboard.dismiss();
     } catch (error) {
-      alert("There was an internal server error while adding a todo.");
+      Alert.alert("Unable to add todo", "There was an internal server error while adding a todo.");
     } finally {
       setIsSubmitting(false);
     }
@@ -49,7 +49,7 @@ export function useTodos() {
       setDeletingId(id);
       await removeTodo(id);
     } catch (error) {
-      alert("There was an internal server error while deleting a todo!");
+      Alert.alert("Unable to delete todo", "There was an internal server error while deleting a todo.");
     } finally {
       setDeletingId((currentId) => (currentId === id ? null : currentId));
     }

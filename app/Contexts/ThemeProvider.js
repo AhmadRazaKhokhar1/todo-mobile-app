@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
+import { Alert } from "react-native";
 import { ThemeContext } from "./ThemeContext";
 import { getStoredThemeMode, setStoredThemeMode } from "../services/themeService";
 
@@ -65,7 +66,7 @@ export default function ThemeProvider({ children }) {
     const isSaved = await setStoredThemeMode(nextMode);
 
     if (!isSaved) {
-      alert("Unable to save theme preference. Please try again.");
+      Alert.alert("Unable to save theme", "Unable to save theme preference. Please try again.");
     }
 
     setIsDarkMode(nextMode);
