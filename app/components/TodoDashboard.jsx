@@ -76,13 +76,14 @@ const createStyles = (palette) =>
       color: palette.text,
     },
     composerRow: {
-      flexDirection: "row",
       gap: 12,
-      alignItems: "flex-end",
     },
-    composerRowCompact: {
-      flexDirection: "column",
-      alignItems: "stretch",
+    composerActions: {
+      flexDirection: "row",
+      justifyContent: "flex-end",
+    },
+    composerActionsCompact: {
+      width: "100%",
     },
     field: {
       flex: 1,
@@ -107,7 +108,6 @@ const createStyles = (palette) =>
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: palette.accent,
-      alignSelf: "flex-end",
     },
     buttonCompact: {
       width: "100%",
@@ -239,7 +239,7 @@ export default function TodoDashboard({
 
       <View style={styles.composer}>
         <Text style={styles.composerTitle}>Create a new task pulse</Text>
-        <View style={[styles.composerRow, isCompactLayout && styles.composerRowCompact]}>
+        <View style={styles.composerRow}>
           <TextInput
             value={todo}
             onChangeText={setTodo}
@@ -248,13 +248,15 @@ export default function TodoDashboard({
             placeholder="Enter your next task"
             placeholderTextColor={palette.textMuted}
           />
-          <Pressable
-            style={[styles.button, isCompactLayout && styles.buttonCompact]}
-            onPress={onAddTodo}
-            disabled={isSubmitting}
-          >
-            <Text style={styles.buttonText}>{isSubmitting ? "Launching..." : "Add Task"}</Text>
-          </Pressable>
+          <View style={[styles.composerActions, isCompactLayout && styles.composerActionsCompact]}>
+            <Pressable
+              style={[styles.button, isCompactLayout && styles.buttonCompact]}
+              onPress={onAddTodo}
+              disabled={isSubmitting}
+            >
+              <Text style={styles.buttonText}>{isSubmitting ? "Launching..." : "Add Task"}</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
 
