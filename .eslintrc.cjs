@@ -23,4 +23,66 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
   },
+  overrides: [
+    {
+      files: ["app/components/**/*.{js,jsx}"],
+      rules: {
+        "no-restricted-imports": [
+          "error",
+          {
+            patterns: [
+              {
+                group: ["../hooks/*", "app/hooks/*"],
+                message: "Components should receive data/actions via props instead of using hooks directly.",
+              },
+              {
+                group: ["../services/*", "app/services/*"],
+                message: "Components should not call services directly.",
+              },
+              {
+                group: ["firebase", "firebase/*", "@react-native-firebase/*"],
+                message: "Firebase SDK access must stay inside app/services/*.",
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      files: ["app/screens/**/*.{js,jsx}"],
+      rules: {
+        "no-restricted-imports": [
+          "error",
+          {
+            patterns: [
+              {
+                group: ["../services/*", "app/services/*"],
+                message: "Screens should compose hooks instead of calling services directly.",
+              },
+              {
+                group: ["firebase", "firebase/*", "@react-native-firebase/*"],
+                message: "Firebase SDK access must stay inside app/services/*.",
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      files: ["app/Contexts/**/*.{js,jsx}", "app/hooks/**/*.{js,jsx}", "app/navigation/**/*.{js,jsx}"],
+      rules: {
+        "no-restricted-imports": [
+          "error",
+          {
+            patterns: [
+              {
+                group: ["firebase", "firebase/*", "@react-native-firebase/*"],
+                message: "Firebase SDK access must stay inside app/services/*.",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
 };
