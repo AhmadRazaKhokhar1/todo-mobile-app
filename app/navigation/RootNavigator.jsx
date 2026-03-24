@@ -1,25 +1,17 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../screens/Home";
-import About from "../screens/About";
-import { appRoutes, initialRouteName, routeNames } from "./routes";
+import { appRoutes, initialRouteName } from "./routes";
 
 const Stack = createStackNavigator();
-const routeComponents = {
-  [routeNames.home]: Home,
-  [routeNames.about]: About,
-};
 
 export default function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName={initialRouteName} screenOptions={{ headerShown: false }}>
       {appRoutes.map((route) => {
-        const routeComponent = routeComponents[route.name];
-
-        if (!routeComponent) {
+        if (!route.component) {
           return null;
         }
 
-        return <Stack.Screen key={route.name} name={route.name} component={routeComponent} />;
+        return <Stack.Screen key={route.name} name={route.name} component={route.component} />;
       })}
     </Stack.Navigator>
   );
