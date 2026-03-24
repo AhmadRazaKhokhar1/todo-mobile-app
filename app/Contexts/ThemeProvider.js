@@ -40,33 +40,32 @@ const darkPalette = {
 };
 
 export default function ThemeProvider({ children }) {
-  const [currentMode, setCurrentMode] = useState("false");
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     async function loadTheme() {
       const storedMode = await getStoredThemeMode();
-      setCurrentMode(storedMode);
+      setIsDarkMode(storedMode);
     }
 
     loadTheme();
   }, []);
 
   const themeHandler = useCallback(async () => {
-    const nextMode = currentMode === "true" ? "false" : "true";
+    const nextMode = !isDarkMode;
     await setStoredThemeMode(nextMode);
-    setCurrentMode(nextMode);
-  }, [currentMode]);
+    setIsDarkMode(nextMode);
+  }, [isDarkMode]);
 
-  const isDarkMode = currentMode === "true";
   const palette = isDarkMode ? darkPalette : lightPalette;
   const value = useMemo(
     () => ({
       themeHandler,
-      currentMode,
+      currentMode: isDarkMode,
       isDarkMode,
       palette,
     }),
-    [themeHandler, currentMode, isDarkMode, palette]
+    [themeHandler, isDarkMode, palette]
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
