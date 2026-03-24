@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ThemeContext } from "../Contexts/ThemeContext";
 
 export default function Navbar() {
@@ -10,6 +10,7 @@ export default function Navbar() {
 
   const navItems = [
     "Home",
+    "Screens",
     "Focus",
     "Priorities",
     "Planner",
@@ -37,7 +38,12 @@ export default function Navbar() {
           </Text>
         </Pressable>
 
-        <View style={styles.navGroup}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.navScroll}
+          contentContainerStyle={styles.navGroup}
+        >
           {navItems.map((item) => {
             const isActive = route.name === item;
 
@@ -57,7 +63,7 @@ export default function Navbar() {
               </Pressable>
             );
           })}
-        </View>
+        </ScrollView>
       </View>
     </View>
   );
@@ -83,11 +89,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   actions: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
     gap: 12,
-    flexWrap: "wrap",
   },
   modeChip: {
     paddingHorizontal: 14,
@@ -99,10 +101,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "800",
   },
+  navScroll: {
+    maxWidth: "100%",
+  },
   navGroup: {
     flexDirection: "row",
     gap: 10,
-    flexWrap: "wrap",
+    paddingRight: 6,
   },
   navPill: {
     paddingHorizontal: 14,
