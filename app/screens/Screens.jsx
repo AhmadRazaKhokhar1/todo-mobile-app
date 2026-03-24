@@ -55,6 +55,16 @@ const screenCards = [
     description: "Convert your open tasks into a repeatable daily rhythm for smoother execution.",
   },
   {
+    route: "InboxZero",
+    title: "Inbox Zero",
+    description: "Clean backlog friction with a ranked cleanup order focused on stale tasks first.",
+  },
+  {
+    route: "Weekly",
+    title: "Weekly",
+    description: "Translate your backlog into a weekly execution rhythm with carry-over and core lanes.",
+  },
+  {
     route: "Insights",
     title: "Insights",
     description: "See workload signals and category breakdowns before planning the next sprint.",

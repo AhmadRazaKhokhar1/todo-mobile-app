@@ -21,6 +21,8 @@ export default function Navbar() {
     "QuickWins",
     "Momentum",
     "Routines",
+    "InboxZero",
+    "Weekly",
     "Insights",
     "About",
   ];
