@@ -17,6 +17,7 @@ import Capture from "./app/screens/Capture";
 import Review from "./app/screens/Review";
 import QuickWins from "./app/screens/QuickWins";
 import Momentum from "./app/screens/Momentum";
+import Routines from "./app/screens/Routines";
 import Navbar from "./app/components/Navbar";
 import { ThemeContext } from "./app/Contexts/ThemeContext";
 
@@ -122,6 +123,7 @@ export default function App() {
                 <Stack.Screen name="Review" component={Review} />
                 <Stack.Screen name="QuickWins" component={QuickWins} />
                 <Stack.Screen name="Momentum" component={Momentum} />
+                <Stack.Screen name="Routines" component={Routines} />
                 <Stack.Screen name="Insights" component={Insights} />
                 <Stack.Screen name="About" component={About} />
               </Stack.Navigator>

@@ -20,6 +20,7 @@ export default function Navbar() {
     "Review",
     "QuickWins",
     "Momentum",
+    "Routines",
     "Insights",
     "About",
   ];

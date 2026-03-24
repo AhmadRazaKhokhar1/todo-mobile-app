@@ -50,6 +50,11 @@ const screenCards = [
     description: "Track backlog freshness and sprint load to protect daily execution pace.",
   },
   {
+    route: "Routines",
+    title: "Routines",
+    description: "Convert your open tasks into a repeatable daily rhythm for smoother execution.",
+  },
+  {
     route: "Insights",
     title: "Insights",
     description: "See workload signals and category breakdowns before planning the next sprint.",
