@@ -40,6 +40,10 @@ module.exports = {
                 message: "Components should not call services directly.",
               },
               {
+                group: ["**/firebase.config", "**/firebase.config.*", "firebase.config", "firebase.config.*"],
+                message: "Only app/services/* should import firebase.config.*.",
+              },
+              {
                 group: ["firebase", "firebase/*", "@react-native-firebase/*"],
                 message: "Firebase SDK access must stay inside app/services/*.",
               },
@@ -64,6 +68,10 @@ module.exports = {
                 message: "Screens should compose hooks instead of calling services directly.",
               },
               {
+                group: ["**/firebase.config", "**/firebase.config.*", "firebase.config", "firebase.config.*"],
+                message: "Only app/services/* should import firebase.config.*.",
+              },
+              {
                 group: ["firebase", "firebase/*", "@react-native-firebase/*"],
                 message: "Firebase SDK access must stay inside app/services/*.",
               },
@@ -83,6 +91,10 @@ module.exports = {
           "error",
           {
             patterns: [
+              {
+                group: ["**/firebase.config", "**/firebase.config.*", "firebase.config", "firebase.config.*"],
+                message: "Only app/services/* should import firebase.config.*.",
+              },
               {
                 group: ["firebase", "firebase/*", "@react-native-firebase/*"],
                 message: "Firebase SDK access must stay inside app/services/*.",

@@ -35,7 +35,10 @@ This repository uses a feature-layered React Native (Expo) architecture with cle
 ## Guardrails
 
 - Keep Firebase SDK usage inside `app/services/*`.
+- Keep `firebase.config.*` imports inside `app/services/*` to avoid leaking integration details across layers.
 - Avoid async side effects directly in presentational components.
 - Keep screens as thin containers that compose hooks and components.
 - Prefer additive, scoped changes over cross-layer refactors.
 - Keep route names centralized in `app/navigation/routes.js` to avoid drift between navigation and UI nav controls.
+
+These boundaries are lint-enforced via `no-restricted-imports` in `.eslintrc.cjs`.
