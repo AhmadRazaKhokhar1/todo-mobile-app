@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Navbar from "./Navbar";
 
@@ -11,6 +11,8 @@ export default function AppShell({
   onNavigate,
   onToggleTheme,
 }) {
+  const currentYear = new Date().getFullYear();
+
   return (
     <SafeAreaView style={[styles.safeArea, { backgroundColor: palette.background }]}>
       <StatusBar style={palette.statusBarStyle} />
@@ -36,6 +38,11 @@ export default function AppShell({
             onToggleTheme={onToggleTheme}
           />
           <View style={styles.content}>{children}</View>
+          <View style={[styles.footer, { borderTopColor: palette.border, backgroundColor: palette.surfaceAlt }]}>
+            <Text style={[styles.footerText, { color: palette.textMuted }]}>
+              Copyright © {currentYear} TODO.NOVA
+            </Text>
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -64,6 +71,18 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+  },
+  footer: {
+    borderTopWidth: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  footerText: {
+    fontSize: 12,
+    fontWeight: "600",
+    letterSpacing: 0.3,
   },
   glowOrb: {
     position: "absolute",
