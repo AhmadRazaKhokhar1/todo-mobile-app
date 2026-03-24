@@ -3,13 +3,13 @@ import { NavigationContainer, createNavigationContainerRef } from "@react-naviga
 import AppShell from "../components/AppShell";
 import { ThemeContext } from "../Contexts/ThemeContext";
 import RootNavigator from "./RootNavigator";
-import { appRoutes } from "./routes";
+import { appRoutes, initialRouteName } from "./routes";
 
 const navigationRef = createNavigationContainerRef();
 
 export default function AppNavigator() {
   const { palette, isDarkMode, themeHandler } = useContext(ThemeContext);
-  const [currentRouteName, setCurrentRouteName] = useState("Home");
+  const [currentRouteName, setCurrentRouteName] = useState(initialRouteName);
 
   const syncCurrentRoute = useCallback(() => {
     const nextRouteName = navigationRef.getCurrentRoute()?.name;
@@ -35,7 +35,7 @@ export default function AppNavigator() {
       <AppShell
         palette={palette}
         isDarkMode={isDarkMode}
-        navItems={appRoutes.map((route) => route.name)}
+        navItems={appRoutes}
         currentRouteName={currentRouteName}
         onNavigate={handleNavigate}
         onToggleTheme={themeHandler}

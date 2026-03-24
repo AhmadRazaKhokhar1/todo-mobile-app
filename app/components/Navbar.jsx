@@ -20,12 +20,12 @@ export default function Navbar({ palette, isDarkMode, navItems, currentRouteName
 
         <View style={styles.navGroup}>
           {navItems.map((item) => {
-            const isActive = currentRouteName === item;
+            const isActive = currentRouteName === item.name;
 
             return (
               <Pressable
-                key={item}
-                onPress={() => onNavigate(item)}
+                key={item.name}
+                onPress={() => onNavigate(item.name)}
                 style={[
                   styles.navPill,
                   {
@@ -34,7 +34,9 @@ export default function Navbar({ palette, isDarkMode, navItems, currentRouteName
                   },
                 ]}
               >
-                <Text style={[styles.navText, { color: isActive ? "#ffffff" : palette.textMuted }]}>{item}</Text>
+                <Text style={[styles.navText, { color: isActive ? "#ffffff" : palette.textMuted }]}>
+                  {item.label}
+                </Text>
               </Pressable>
             );
           })}
