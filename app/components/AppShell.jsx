@@ -23,7 +23,7 @@ export default function AppShell({
             {
               backgroundColor: palette.surface,
               borderColor: palette.border,
-              shadowColor: isDarkMode ? "#020817" : "#4f7cff",
+              shadowColor: isDarkMode ? "#020817" : palette.accent,
             },
           ]}
         >
