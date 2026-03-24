@@ -85,6 +85,33 @@ module.exports = {
       },
     },
     {
+      files: ["app/services/**/*.{js,jsx}"],
+      rules: {
+        "no-restricted-imports": [
+          "error",
+          {
+            patterns: [
+              {
+                group: [
+                  "../components/*",
+                  "../screens/*",
+                  "../navigation/*",
+                  "../hooks/*",
+                  "../Contexts/*",
+                  "app/components/*",
+                  "app/screens/*",
+                  "app/navigation/*",
+                  "app/hooks/*",
+                  "app/Contexts/*",
+                ],
+                message: "Services should stay integration-focused and must not import UI/navigation/hook/context layers.",
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
       files: ["app/Contexts/**/*.{js,jsx}", "app/hooks/**/*.{js,jsx}", "app/navigation/**/*.{js,jsx}"],
       rules: {
         "no-restricted-imports": [

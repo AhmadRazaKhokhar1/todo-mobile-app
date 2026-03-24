@@ -36,6 +36,7 @@ This repository uses a feature-layered React Native (Expo) architecture with cle
 
 - Keep Firebase SDK usage inside `app/services/*`.
 - Keep `firebase.config.*` imports inside `app/services/*` to avoid leaking integration details across layers.
+- Keep services UI-agnostic: do not import components, screens, navigation, hooks, or contexts from `app/services/*`.
 - Avoid async side effects directly in presentational components.
 - Keep screens as thin containers that compose hooks and components.
 - Prefer additive, scoped changes over cross-layer refactors.
