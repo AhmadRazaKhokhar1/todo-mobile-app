@@ -78,7 +78,7 @@ const createStyles = (palette) =>
     composerRow: {
       flexDirection: "row",
       gap: 12,
-      alignItems: "center",
+      alignItems: "flex-end",
     },
     composerRowCompact: {
       flexDirection: "column",
@@ -100,17 +100,19 @@ const createStyles = (palette) =>
       width: "100%",
     },
     button: {
-      minWidth: 140,
+      minWidth: 135,
       borderRadius: 16,
       paddingHorizontal: 20,
       paddingVertical: 14,
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: palette.accent,
+      alignSelf: "flex-end",
     },
     buttonCompact: {
       width: "100%",
       minWidth: 0,
+      alignSelf: "stretch",
     },
     buttonText: {
       color: "#ffffff",
