@@ -1,15 +1,37 @@
-import { useContext } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { useCallback, useContext, useState } from "react";
+import { NavigationContainer, createNavigationContainerRef } from "@react-navigation/native";
 import AppShell from "../components/AppShell";
 import { ThemeContext } from "../Contexts/ThemeContext";
 import RootNavigator from "./RootNavigator";
 
+const navigationRef = createNavigationContainerRef();
+
 export default function AppNavigator() {
   const { palette } = useContext(ThemeContext);
+  const [currentRouteName, setCurrentRouteName] = useState("Home");
+
+  const syncCurrentRoute = useCallback(() => {
+    const nextRouteName = navigationRef.getCurrentRoute()?.name;
+
+    if (nextRouteName) {
+      setCurrentRouteName(nextRouteName);
+    }
+  }, []);
+
+  const handleNavigate = useCallback(
+    (routeName) => {
+      if (routeName === currentRouteName || !navigationRef.isReady()) {
+        return;
+      }
+
+      navigationRef.navigate(routeName);
+    },
+    [currentRouteName]
+  );
 
   return (
-    <NavigationContainer theme={palette.navTheme}>
-      <AppShell>
+    <NavigationContainer ref={navigationRef} theme={palette.navTheme} onReady={syncCurrentRoute} onStateChange={syncCurrentRoute}>
+      <AppShell currentRouteName={currentRouteName} onNavigate={handleNavigate}>
         <RootNavigator />
       </AppShell>
     </NavigationContainer>

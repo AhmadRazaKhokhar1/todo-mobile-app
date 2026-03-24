@@ -1,11 +1,8 @@
 import { useContext } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ThemeContext } from "../Contexts/ThemeContext";
 
-export default function Navbar() {
-  const navigation = useNavigation();
-  const route = useRoute();
+export default function Navbar({ currentRouteName, onNavigate }) {
   const { themeHandler, isDarkMode, palette } = useContext(ThemeContext);
 
   const navItems = ["Home", "About"];
@@ -29,12 +26,12 @@ export default function Navbar() {
 
         <View style={styles.navGroup}>
           {navItems.map((item) => {
-            const isActive = route.name === item;
+            const isActive = currentRouteName === item;
 
             return (
               <Pressable
                 key={item}
-                onPress={() => navigation.navigate(item)}
+                onPress={() => onNavigate(item)}
                 style={[
                   styles.navPill,
                   {

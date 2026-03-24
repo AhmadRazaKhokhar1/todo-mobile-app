@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { ThemeContext } from "../Contexts/ThemeContext";
 import Navbar from "./Navbar";
 
-export default function AppShell({ children }) {
+export default function AppShell({ children, currentRouteName, onNavigate }) {
   const { palette, isDarkMode } = useContext(ThemeContext);
 
   return (
@@ -23,7 +23,7 @@ export default function AppShell({ children }) {
             },
           ]}
         >
-          <Navbar />
+          <Navbar currentRouteName={currentRouteName} onNavigate={onNavigate} />
           <View style={styles.content}>{children}</View>
         </View>
       </View>
