@@ -43,17 +43,31 @@ export default function ThemeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+
     async function loadTheme() {
       const storedMode = await getStoredThemeMode();
-      setIsDarkMode(storedMode);
+
+      if (isMounted) {
+        setIsDarkMode(storedMode);
+      }
     }
 
     loadTheme();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const themeHandler = useCallback(async () => {
     const nextMode = !isDarkMode;
-    await setStoredThemeMode(nextMode);
+    const isSaved = await setStoredThemeMode(nextMode);
+
+    if (!isSaved) {
+      alert("Unable to save theme preference. Please try again.");
+    }
+
     setIsDarkMode(nextMode);
   }, [isDarkMode]);
 
