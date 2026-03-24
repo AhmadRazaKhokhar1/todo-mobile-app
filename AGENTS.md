@@ -48,7 +48,7 @@ This repo has no formal test suite yet. Run these checks before opening a PR:
 ```bash
 npm ci
 npm run lint
-npm start -- --non-interactive
+npm run start:ci
 ```
 
 If `npm run lint` is unavailable, document that gap in the PR and include local runtime validation results.

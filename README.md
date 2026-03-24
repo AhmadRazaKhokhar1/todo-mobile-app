@@ -37,7 +37,7 @@ Run before opening a PR:
 ```bash
 npm ci
 npm run lint
-npm start -- --non-interactive
+npm run start:ci
 ```
 
 If `npm run lint` is not available, capture that gap in your PR notes and include runtime validation results.
