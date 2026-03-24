@@ -25,20 +25,13 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["app/components/**/*.{js,jsx}"],
+      files: ["**/*.{js,jsx}"],
+      excludedFiles: ["app/services/**/*.{js,jsx}", "firebase.config.js"],
       rules: {
         "no-restricted-imports": [
           "error",
           {
             patterns: [
-              {
-                group: ["../hooks/*", "app/hooks/*"],
-                message: "Components should receive data/actions via props instead of using hooks directly.",
-              },
-              {
-                group: ["../services/*", "app/services/*"],
-                message: "Components should not call services directly.",
-              },
               {
                 group: ["**/firebase.config", "**/firebase.config.*", "firebase.config", "firebase.config.*"],
                 message: "Only app/services/* should import firebase.config.*.",
@@ -57,6 +50,26 @@ module.exports = {
       },
     },
     {
+      files: ["app/components/**/*.{js,jsx}"],
+      rules: {
+        "no-restricted-imports": [
+          "error",
+          {
+            patterns: [
+              {
+                group: ["../hooks/*", "app/hooks/*"],
+                message: "Components should receive data/actions via props instead of using hooks directly.",
+              },
+              {
+                group: ["../services/*", "app/services/*"],
+                message: "Components should not call services directly.",
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
       files: ["app/screens/**/*.{js,jsx}"],
       rules: {
         "no-restricted-imports": [
@@ -66,18 +79,6 @@ module.exports = {
               {
                 group: ["../services/*", "app/services/*"],
                 message: "Screens should compose hooks instead of calling services directly.",
-              },
-              {
-                group: ["**/firebase.config", "**/firebase.config.*", "firebase.config", "firebase.config.*"],
-                message: "Only app/services/* should import firebase.config.*.",
-              },
-              {
-                group: ["firebase", "firebase/*", "@react-native-firebase/*"],
-                message: "Firebase SDK access must stay inside app/services/*.",
-              },
-              {
-                group: ["@react-native-async-storage/async-storage"],
-                message: "AsyncStorage access must stay inside app/services/*.",
               },
             ],
           },
@@ -105,30 +106,6 @@ module.exports = {
                   "app/Contexts/*",
                 ],
                 message: "Services should stay integration-focused and must not import UI/navigation/hook/context layers.",
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      files: ["app/Contexts/**/*.{js,jsx}", "app/hooks/**/*.{js,jsx}", "app/navigation/**/*.{js,jsx}"],
-      rules: {
-        "no-restricted-imports": [
-          "error",
-          {
-            patterns: [
-              {
-                group: ["**/firebase.config", "**/firebase.config.*", "firebase.config", "firebase.config.*"],
-                message: "Only app/services/* should import firebase.config.*.",
-              },
-              {
-                group: ["firebase", "firebase/*", "@react-native-firebase/*"],
-                message: "Firebase SDK access must stay inside app/services/*.",
-              },
-              {
-                group: ["@react-native-async-storage/async-storage"],
-                message: "AsyncStorage access must stay inside app/services/*.",
               },
             ],
           },
