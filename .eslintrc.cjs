@@ -43,6 +43,10 @@ module.exports = {
                 group: ["firebase", "firebase/*", "@react-native-firebase/*"],
                 message: "Firebase SDK access must stay inside app/services/*.",
               },
+              {
+                group: ["@react-native-async-storage/async-storage"],
+                message: "AsyncStorage access must stay inside app/services/*.",
+              },
             ],
           },
         ],
@@ -63,6 +67,10 @@ module.exports = {
                 group: ["firebase", "firebase/*", "@react-native-firebase/*"],
                 message: "Firebase SDK access must stay inside app/services/*.",
               },
+              {
+                group: ["@react-native-async-storage/async-storage"],
+                message: "AsyncStorage access must stay inside app/services/*.",
+              },
             ],
           },
         ],
@@ -78,6 +86,10 @@ module.exports = {
               {
                 group: ["firebase", "firebase/*", "@react-native-firebase/*"],
                 message: "Firebase SDK access must stay inside app/services/*.",
+              },
+              {
+                group: ["@react-native-async-storage/async-storage"],
+                message: "AsyncStorage access must stay inside app/services/*.",
               },
             ],
           },
