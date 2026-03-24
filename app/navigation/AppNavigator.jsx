@@ -7,7 +7,7 @@ import RootNavigator from "./RootNavigator";
 const navigationRef = createNavigationContainerRef();
 
 export default function AppNavigator() {
-  const { palette } = useContext(ThemeContext);
+  const { palette, isDarkMode, themeHandler } = useContext(ThemeContext);
   const [currentRouteName, setCurrentRouteName] = useState("Home");
 
   const syncCurrentRoute = useCallback(() => {
@@ -31,7 +31,13 @@ export default function AppNavigator() {
 
   return (
     <NavigationContainer ref={navigationRef} theme={palette.navTheme} onReady={syncCurrentRoute} onStateChange={syncCurrentRoute}>
-      <AppShell currentRouteName={currentRouteName} onNavigate={handleNavigate}>
+      <AppShell
+        palette={palette}
+        isDarkMode={isDarkMode}
+        currentRouteName={currentRouteName}
+        onNavigate={handleNavigate}
+        onToggleTheme={themeHandler}
+      >
         <RootNavigator />
       </AppShell>
     </NavigationContainer>

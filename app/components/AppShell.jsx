@@ -1,12 +1,15 @@
-import { useContext } from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { ThemeContext } from "../Contexts/ThemeContext";
 import Navbar from "./Navbar";
 
-export default function AppShell({ children, currentRouteName, onNavigate }) {
-  const { palette, isDarkMode } = useContext(ThemeContext);
-
+export default function AppShell({
+  children,
+  palette,
+  isDarkMode,
+  currentRouteName,
+  onNavigate,
+  onToggleTheme,
+}) {
   return (
     <SafeAreaView style={[styles.safeArea, { backgroundColor: palette.background }]}>
       <StatusBar style={palette.statusBarStyle} />
@@ -23,7 +26,13 @@ export default function AppShell({ children, currentRouteName, onNavigate }) {
             },
           ]}
         >
-          <Navbar currentRouteName={currentRouteName} onNavigate={onNavigate} />
+          <Navbar
+            palette={palette}
+            isDarkMode={isDarkMode}
+            currentRouteName={currentRouteName}
+            onNavigate={onNavigate}
+            onToggleTheme={onToggleTheme}
+          />
           <View style={styles.content}>{children}</View>
         </View>
       </View>

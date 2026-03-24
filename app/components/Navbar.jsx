@@ -1,10 +1,6 @@
-import { useContext } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { ThemeContext } from "../Contexts/ThemeContext";
 
-export default function Navbar({ currentRouteName, onNavigate }) {
-  const { themeHandler, isDarkMode, palette } = useContext(ThemeContext);
-
+export default function Navbar({ palette, isDarkMode, currentRouteName, onNavigate, onToggleTheme }) {
   const navItems = ["Home", "About"];
 
   return (
@@ -16,7 +12,7 @@ export default function Navbar({ currentRouteName, onNavigate }) {
 
       <View style={styles.actions}>
         <Pressable
-          onPress={themeHandler}
+          onPress={onToggleTheme}
           style={[styles.modeChip, { backgroundColor: palette.accentSoft, borderColor: palette.border }]}
         >
           <Text style={[styles.modeLabel, { color: palette.text }]}>
