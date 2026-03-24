@@ -4,6 +4,22 @@ import { Alert } from "react-native";
 import { ThemeContext } from "./ThemeContext";
 import { getStoredThemeMode, setStoredThemeMode } from "../services/themeService";
 
+const lightNavTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "#f97316",
+  },
+};
+
+const darkNavTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: "#fb923c",
+  },
+};
+
 const lightPalette = {
   background: "#f3f7ff",
   surface: "#ffffff",
@@ -18,7 +34,7 @@ const lightPalette = {
   success: "#1fc38b",
   glowPrimary: "rgba(249, 115, 22, 0.20)",
   glowSecondary: "rgba(31, 195, 139, 0.16)",
-  navTheme: DefaultTheme,
+  navTheme: lightNavTheme,
   statusBarStyle: "dark",
 };
 
@@ -36,7 +52,7 @@ const darkPalette = {
   success: "#34d7a1",
   glowPrimary: "rgba(251, 146, 60, 0.24)",
   glowSecondary: "rgba(52, 215, 161, 0.18)",
-  navTheme: DarkTheme,
+  navTheme: darkNavTheme,
   statusBarStyle: "light",
 };
 
