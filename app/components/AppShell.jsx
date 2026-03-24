@@ -1,37 +1,33 @@
 import { useContext } from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { ThemeContext } from "../Contexts/ThemeContext";
 import Navbar from "./Navbar";
-import RootNavigator from "../navigation/RootNavigator";
 
-export default function AppShell() {
+export default function AppShell({ children }) {
   const { palette, isDarkMode } = useContext(ThemeContext);
 
   return (
-    <NavigationContainer theme={palette.navTheme}>
-      <SafeAreaView style={[styles.safeArea, { backgroundColor: palette.background }]}>
-        <StatusBar style={palette.statusBarStyle} />
-        <View style={styles.shell}>
-          <View style={[styles.glowOrb, styles.glowOrbTop, { backgroundColor: palette.glowPrimary }]} />
-          <View style={[styles.glowOrb, styles.glowOrbBottom, { backgroundColor: palette.glowSecondary }]} />
-          <View
-            style={[
-              styles.appFrame,
-              {
-                backgroundColor: palette.surface,
-                borderColor: palette.border,
-                shadowColor: isDarkMode ? "#020817" : "#4f7cff",
-              },
-            ]}
-          >
-            <Navbar />
-            <RootNavigator />
-          </View>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: palette.background }]}>
+      <StatusBar style={palette.statusBarStyle} />
+      <View style={styles.shell}>
+        <View style={[styles.glowOrb, styles.glowOrbTop, { backgroundColor: palette.glowPrimary }]} />
+        <View style={[styles.glowOrb, styles.glowOrbBottom, { backgroundColor: palette.glowSecondary }]} />
+        <View
+          style={[
+            styles.appFrame,
+            {
+              backgroundColor: palette.surface,
+              borderColor: palette.border,
+              shadowColor: isDarkMode ? "#020817" : "#4f7cff",
+            },
+          ]}
+        >
+          <Navbar />
+          <View style={styles.content}>{children}</View>
         </View>
-      </SafeAreaView>
-    </NavigationContainer>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -54,6 +50,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.18,
     shadowRadius: 28,
     elevation: 10,
+  },
+  content: {
+    flex: 1,
   },
   glowOrb: {
     position: "absolute",

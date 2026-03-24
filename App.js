@@ -1,10 +1,10 @@
-import AppShell from "./app/components/AppShell";
+import AppNavigator from "./app/navigation/AppNavigator";
 import ThemeProvider from "./app/Contexts/ThemeProvider";
 
 export default function App() {
   return (
     <ThemeProvider>
-      <AppShell />
+      <AppNavigator />
     </ThemeProvider>
   );
 }
