@@ -1,14 +1,11 @@
-import Home from "../screens/Home";
-import About from "../screens/About";
-
 export const routeNames = {
   home: "Home",
   about: "About",
 };
 
 export const appRoutes = [
-  { name: routeNames.home, label: "Home", component: Home, showInNav: true },
-  { name: routeNames.about, label: "About", component: About, showInNav: true },
+  { name: routeNames.home, label: "Home", showInNav: true },
+  { name: routeNames.about, label: "About", showInNav: true },
 ];
 
 export const navRoutes = appRoutes
