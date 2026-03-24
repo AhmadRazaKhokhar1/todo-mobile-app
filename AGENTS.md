@@ -22,6 +22,7 @@ Follow the existing layer boundaries under `app/`:
 
 - `app/components/`: reusable presentational UI building blocks.
 - `app/screens/`: route-level screens (`Home`, `About`).
+- `app/navigation/`: route composition and navigator wiring (`RootNavigator`).
 - `app/hooks/`: stateful UI/data hooks (`useTodos`).
 - `app/services/`: external integrations and persistence (`todoService`, Firebase).
 - `app/Contexts/`: app-wide providers and cross-cutting state.
