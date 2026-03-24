@@ -11,6 +11,7 @@ import Insights from "./app/screens/Insights";
 import Priorities from "./app/screens/Priorities";
 import Planner from "./app/screens/Planner";
 import Agenda from "./app/screens/Agenda";
+import Capture from "./app/screens/Capture";
 import Navbar from "./app/components/Navbar";
 import { ThemeContext } from "./app/Contexts/ThemeContext";
 
@@ -107,10 +108,11 @@ export default function App() {
               <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Focus" component={Focus} />
-                <Stack.Screen name="Insights" component={Insights} />
                 <Stack.Screen name="Priorities" component={Priorities} />
                 <Stack.Screen name="Planner" component={Planner} />
                 <Stack.Screen name="Agenda" component={Agenda} />
+                <Stack.Screen name="Capture" component={Capture} />
+                <Stack.Screen name="Insights" component={Insights} />
                 <Stack.Screen name="About" component={About} />
               </Stack.Navigator>
             </View>
