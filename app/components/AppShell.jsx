@@ -40,7 +40,7 @@ export default function AppShell({
           <View style={styles.content}>{children}</View>
           <View style={[styles.footer, { borderTopColor: palette.border, backgroundColor: palette.surfaceAlt }]}>
             <Text style={[styles.footerText, { color: palette.textMuted }]}>
-              Copyright © {currentYear} TODO.NOVA
+              {`copyright@${currentYear} TODO.NOVA`}
             </Text>
           </View>
         </View>
