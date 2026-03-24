@@ -20,6 +20,7 @@ This repository uses a feature-layered React Native (Expo) architecture with cle
 - `routes` is the single source of truth for app route metadata.
 - `Home` binds `useTodos` data/actions into `TodoDashboard` props.
 - `About` is a thin route-level container that composes `AboutOverview`.
+- `useTheme` is the single hook boundary for reading `ThemeContext`.
 - `todoService` is the single Firebase todo data access boundary.
 - `themeService` is the single AsyncStorage theme persistence boundary.
 

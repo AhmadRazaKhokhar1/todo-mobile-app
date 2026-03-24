@@ -1,14 +1,14 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { NavigationContainer, createNavigationContainerRef } from "@react-navigation/native";
 import AppShell from "../components/AppShell";
-import { ThemeContext } from "../Contexts/ThemeContext";
+import { useTheme } from "../hooks/useTheme";
 import RootNavigator from "./RootNavigator";
 import { appRoutes, initialRouteName } from "./routes";
 
 const navigationRef = createNavigationContainerRef();
 
 export default function AppNavigator() {
-  const { palette, isDarkMode, themeHandler } = useContext(ThemeContext);
+  const { palette, isDarkMode, themeHandler } = useTheme();
   const [currentRouteName, setCurrentRouteName] = useState(initialRouteName);
 
   const syncCurrentRoute = useCallback(() => {

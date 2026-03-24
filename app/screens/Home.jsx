@@ -1,10 +1,10 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import TodoDashboard from "../components/TodoDashboard";
-import { ThemeContext } from "../Contexts/ThemeContext";
+import { useTheme } from "../hooks/useTheme";
 import { useTodos } from "../hooks/useTodos";
 
 export default function Home() {
-  const { palette } = useContext(ThemeContext);
+  const { palette } = useTheme();
   const { todo, setTodo, todos, isLoading, isSubmitting, deletingId, addTodo, deleteTodo } = useTodos();
 
   const metrics = useMemo(
