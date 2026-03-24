@@ -35,6 +35,11 @@ const screenCards = [
     description: "Audit backlog age, detect stale work, and decide the next best action.",
   },
   {
+    route: "QuickWins",
+    title: "Quick Wins",
+    description: "Identify lightweight tasks you can finish quickly to build momentum.",
+  },
+  {
     route: "Insights",
     title: "Insights",
     description: "See workload signals and category breakdowns before planning the next sprint.",

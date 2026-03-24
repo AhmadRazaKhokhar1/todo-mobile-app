@@ -17,6 +17,7 @@ export default function Navbar() {
     "Agenda",
     "Capture",
     "Review",
+    "QuickWins",
     "Insights",
     "About",
   ];
