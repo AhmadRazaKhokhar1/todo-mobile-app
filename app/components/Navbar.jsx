@@ -8,7 +8,7 @@ export default function Navbar() {
   const route = useRoute();
   const { themeHandler, isDarkMode, palette } = useContext(ThemeContext);
 
-  const navItems = ["Home", "Focus", "Priorities", "Planner", "Insights", "About"];
+  const navItems = ["Home", "Focus", "Priorities", "Planner", "Agenda", "Insights", "About"];
 
   return (
     <View style={[styles.wrapper, { backgroundColor: palette.surfaceAlt, borderBottomColor: palette.border }]}>
