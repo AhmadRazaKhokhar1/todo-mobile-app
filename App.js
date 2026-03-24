@@ -7,6 +7,7 @@ import { StatusBar } from "expo-status-bar";
 import Home from "./app/screens/Home";
 import Screens from "./app/screens/Screens";
 import About from "./app/screens/About";
+import Today from "./app/screens/Today";
 import Focus from "./app/screens/Focus";
 import Insights from "./app/screens/Insights";
 import Priorities from "./app/screens/Priorities";
@@ -111,6 +112,7 @@ export default function App() {
               <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Screens" component={Screens} />
+                <Stack.Screen name="Today" component={Today} />
                 <Stack.Screen name="Focus" component={Focus} />
                 <Stack.Screen name="Priorities" component={Priorities} />
                 <Stack.Screen name="Planner" component={Planner} />

@@ -11,6 +11,7 @@ export default function Navbar() {
   const navItems = [
     "Home",
     "Screens",
+    "Today",
     "Focus",
     "Priorities",
     "Planner",

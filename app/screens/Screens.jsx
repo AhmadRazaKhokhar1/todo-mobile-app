@@ -5,6 +5,11 @@ import { ThemeContext } from "../Contexts/ThemeContext";
 
 const screenCards = [
   {
+    route: "Today",
+    title: "Today",
+    description: "Get an ordered daily plan: do first, do next, and quick wins to keep momentum.",
+  },
+  {
     route: "Capture",
     title: "Capture",
     description: "Quickly add incoming tasks using templates so ideas do not interrupt flow.",
