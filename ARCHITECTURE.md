@@ -17,6 +17,7 @@ This repository uses a feature-layered React Native (Expo) architecture with cle
 - `App.js` wires `ThemeProvider` and `AppNavigator`.
 - `AppNavigator` owns `NavigationContainer` and frame-level shell composition.
 - `RootNavigator` defines screen registration and route graph.
+- `routes` is the single source of truth for app route metadata.
 - `Home` binds `useTodos` data/actions into `TodoDashboard` props.
 - `About` is a thin route-level container that composes `AboutOverview`.
 - `todoService` is the single Firebase todo data access boundary.
@@ -36,3 +37,4 @@ This repository uses a feature-layered React Native (Expo) architecture with cle
 - Avoid async side effects directly in presentational components.
 - Keep screens as thin containers that compose hooks and components.
 - Prefer additive, scoped changes over cross-layer refactors.
+- Keep route names centralized in `app/navigation/routes.js` to avoid drift between navigation and UI nav controls.

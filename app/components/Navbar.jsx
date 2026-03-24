@@ -1,8 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function Navbar({ palette, isDarkMode, currentRouteName, onNavigate, onToggleTheme }) {
-  const navItems = ["Home", "About"];
-
+export default function Navbar({ palette, isDarkMode, navItems, currentRouteName, onNavigate, onToggleTheme }) {
   return (
     <View style={[styles.wrapper, { backgroundColor: palette.surfaceAlt, borderBottomColor: palette.border }]}>
       <View>

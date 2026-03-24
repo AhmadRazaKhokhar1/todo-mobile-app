@@ -3,6 +3,7 @@ import { NavigationContainer, createNavigationContainerRef } from "@react-naviga
 import AppShell from "../components/AppShell";
 import { ThemeContext } from "../Contexts/ThemeContext";
 import RootNavigator from "./RootNavigator";
+import { appRoutes } from "./routes";
 
 const navigationRef = createNavigationContainerRef();
 
@@ -34,6 +35,7 @@ export default function AppNavigator() {
       <AppShell
         palette={palette}
         isDarkMode={isDarkMode}
+        navItems={appRoutes.map((route) => route.name)}
         currentRouteName={currentRouteName}
         onNavigate={handleNavigate}
         onToggleTheme={themeHandler}

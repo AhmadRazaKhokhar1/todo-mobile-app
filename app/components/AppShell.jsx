@@ -6,6 +6,7 @@ export default function AppShell({
   children,
   palette,
   isDarkMode,
+  navItems,
   currentRouteName,
   onNavigate,
   onToggleTheme,
@@ -29,6 +30,7 @@ export default function AppShell({
           <Navbar
             palette={palette}
             isDarkMode={isDarkMode}
+            navItems={navItems}
             currentRouteName={currentRouteName}
             onNavigate={onNavigate}
             onToggleTheme={onToggleTheme}

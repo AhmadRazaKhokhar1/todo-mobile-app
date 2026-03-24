@@ -1,14 +1,14 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../screens/Home";
-import About from "../screens/About";
+import { appRoutes } from "./routes";
 
 const Stack = createStackNavigator();
 
 export default function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="About" component={About} />
+      {appRoutes.map((route) => (
+        <Stack.Screen key={route.name} name={route.name} component={route.component} />
+      ))}
     </Stack.Navigator>
   );
 }
