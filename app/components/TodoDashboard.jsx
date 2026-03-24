@@ -112,9 +112,6 @@ const createStyles = (palette) =>
       width: "100%",
       minWidth: 0,
     },
-    buttonWide: {
-      alignSelf: "flex-end",
-    },
     buttonText: {
       color: "#ffffff",
       fontSize: 14,
@@ -250,7 +247,7 @@ export default function TodoDashboard({
             placeholderTextColor={palette.textMuted}
           />
           <Pressable
-            style={[styles.button, isCompactLayout ? styles.buttonCompact : styles.buttonWide]}
+            style={[styles.button, isCompactLayout && styles.buttonCompact]}
             onPress={onAddTodo}
             disabled={isSubmitting}
           >
