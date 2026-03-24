@@ -1,0 +1,47 @@
+import { useCallback, useState } from "react";
+import { NavigationContainer, createNavigationContainerRef } from "@react-navigation/native";
+import AppShell from "../components/AppShell";
+import { useTheme } from "../hooks/useTheme";
+import RootNavigator from "./RootNavigator";
+import { initialRouteName, navRoutes } from "./routes";
+
+const navigationRef = createNavigationContainerRef();
+
+export default function AppNavigator() {
+  const { palette, isDarkMode, themeHandler } = useTheme();
+  const [currentRouteName, setCurrentRouteName] = useState(initialRouteName);
+
+  const syncCurrentRoute = useCallback(() => {
+    const nextRouteName = navigationRef.getCurrentRoute()?.name;
+
+    if (nextRouteName) {
+      setCurrentRouteName(nextRouteName);
+    }
+  }, []);
+
+  const handleNavigate = useCallback(
+    (routeName) => {
+      if (routeName === currentRouteName || !navigationRef.isReady()) {
+        return;
+      }
+
+      navigationRef.navigate(routeName);
+    },
+    [currentRouteName]
+  );
+
+  return (
+    <NavigationContainer ref={navigationRef} theme={palette.navTheme} onReady={syncCurrentRoute} onStateChange={syncCurrentRoute}>
+      <AppShell
+        palette={palette}
+        isDarkMode={isDarkMode}
+        navItems={navRoutes}
+        currentRouteName={currentRouteName}
+        onNavigate={handleNavigate}
+        onToggleTheme={themeHandler}
+      >
+        <RootNavigator />
+      </AppShell>
+    </NavigationContainer>
+  );
+}

@@ -22,8 +22,9 @@ Follow the existing layer boundaries under `app/`:
 
 - `app/components/`: reusable presentational UI building blocks.
 - `app/screens/`: route-level screens (`Home`, `About`).
-- `app/hooks/`: stateful UI/data hooks (`useTodos`).
-- `app/services/`: external integrations and persistence (`todoService`, Firebase).
+- `app/navigation/`: app/container navigation wiring (`AppNavigator`), route graph composition (`RootNavigator`), and route metadata (`routes`).
+- `app/hooks/`: stateful UI/data hooks (`useTodos`, `useTheme`).
+- `app/services/`: external integrations and persistence (`todoService`, `themeService`, Firebase/AsyncStorage).
 - `app/Contexts/`: app-wide providers and cross-cutting state.
 
 Entry points and config:
@@ -47,7 +48,7 @@ This repo has no formal test suite yet. Run these checks before opening a PR:
 ```bash
 npm ci
 npm run lint
-npm start -- --non-interactive
+npm run start:ci
 ```
 
 If `npm run lint` is unavailable, document that gap in the PR and include local runtime validation results.

@@ -1,15 +1,6 @@
-import { useContext } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { ThemeContext } from "../Contexts/ThemeContext";
 
-export default function Navbar() {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const { themeHandler, isDarkMode, palette } = useContext(ThemeContext);
-
-  const navItems = ["Home", "About"];
-
+export default function Navbar({ palette, isDarkMode, navItems, currentRouteName, onNavigate, onToggleTheme }) {
   return (
     <View style={[styles.wrapper, { backgroundColor: palette.surfaceAlt, borderBottomColor: palette.border }]}>
       <View>
@@ -19,7 +10,7 @@ export default function Navbar() {
 
       <View style={styles.actions}>
         <Pressable
-          onPress={themeHandler}
+          onPress={onToggleTheme}
           style={[styles.modeChip, { backgroundColor: palette.accentSoft, borderColor: palette.border }]}
         >
           <Text style={[styles.modeLabel, { color: palette.text }]}>
@@ -29,12 +20,12 @@ export default function Navbar() {
 
         <View style={styles.navGroup}>
           {navItems.map((item) => {
-            const isActive = route.name === item;
+            const isActive = currentRouteName === item.name;
 
             return (
               <Pressable
-                key={item}
-                onPress={() => navigation.navigate(item)}
+                key={item.name}
+                onPress={() => onNavigate(item.name)}
                 style={[
                   styles.navPill,
                   {
@@ -43,7 +34,9 @@ export default function Navbar() {
                   },
                 ]}
               >
-                <Text style={[styles.navText, { color: isActive ? "#ffffff" : palette.textMuted }]}>{item}</Text>
+                <Text style={[styles.navText, { color: isActive ? "#ffffff" : palette.textMuted }]}>
+                  {item.label}
+                </Text>
               </Pressable>
             );
           })}
