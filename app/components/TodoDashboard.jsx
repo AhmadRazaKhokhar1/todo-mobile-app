@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View, useWindowDimensions } from "react-native";
 
 const createStyles = (palette) =>
   StyleSheet.create({
@@ -78,7 +78,11 @@ const createStyles = (palette) =>
     composerRow: {
       flexDirection: "row",
       gap: 12,
-      flexWrap: "wrap",
+      alignItems: "flex-end",
+    },
+    composerRowCompact: {
+      flexDirection: "column",
+      alignItems: "stretch",
     },
     field: {
       flex: 1,
@@ -91,14 +95,24 @@ const createStyles = (palette) =>
       borderColor: palette.border,
       color: palette.text,
     },
+    fieldCompact: {
+      minWidth: 0,
+      width: "100%",
+    },
     button: {
-      minWidth: 140,
+      minWidth: 135,
       borderRadius: 16,
       paddingHorizontal: 20,
       paddingVertical: 14,
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: palette.accent,
+      alignSelf: "flex-end",
+    },
+    buttonCompact: {
+      width: "100%",
+      minWidth: 0,
+      alignSelf: "stretch",
     },
     buttonText: {
       color: "#ffffff",
@@ -200,6 +214,8 @@ export default function TodoDashboard({
   onDeleteTodo,
 }) {
   const styles = createStyles(palette);
+  const { width } = useWindowDimensions();
+  const isCompactLayout = width < 640;
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
@@ -223,16 +239,20 @@ export default function TodoDashboard({
 
       <View style={styles.composer}>
         <Text style={styles.composerTitle}>Create a new task pulse</Text>
-        <View style={styles.composerRow}>
+        <View style={[styles.composerRow, isCompactLayout && styles.composerRowCompact]}>
           <TextInput
             value={todo}
             onChangeText={setTodo}
-            style={styles.field}
+            style={[styles.field, isCompactLayout && styles.fieldCompact]}
             inputMode="text"
             placeholder="Enter your next task"
             placeholderTextColor={palette.textMuted}
           />
-          <Pressable style={styles.button} onPress={onAddTodo} disabled={isSubmitting}>
+          <Pressable
+            style={[styles.button, isCompactLayout && styles.buttonCompact]}
+            onPress={onAddTodo}
+            disabled={isSubmitting}
+          >
             <Text style={styles.buttonText}>{isSubmitting ? "Launching..." : "Add Task"}</Text>
           </Pressable>
         </View>
