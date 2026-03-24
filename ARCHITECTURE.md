@@ -21,6 +21,7 @@ This repository uses a feature-layered React Native (Expo) architecture with cle
 - `Home` binds `useTodos` data/actions into `TodoDashboard` props.
 - `About` is a thin route-level container that composes `AboutOverview`.
 - `useTheme` is the single hook boundary for reading `ThemeContext`.
+- `ThemeProvider` owns the design-token palette definitions (including the primary accent color) for light/dark modes.
 - `todoService` is the single Firebase todo data access boundary.
 - `themeService` is the single AsyncStorage theme persistence boundary.
 

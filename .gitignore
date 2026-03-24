@@ -34,3 +34,6 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 config.bat
+
+# orchestration artifacts
+.orch-symphony/
