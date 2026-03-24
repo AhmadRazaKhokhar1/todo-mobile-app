@@ -45,6 +45,11 @@ const screenCards = [
     description: "Identify lightweight tasks you can finish quickly to build momentum.",
   },
   {
+    route: "Momentum",
+    title: "Momentum",
+    description: "Track backlog freshness and sprint load to protect daily execution pace.",
+  },
+  {
     route: "Insights",
     title: "Insights",
     description: "See workload signals and category breakdowns before planning the next sprint.",
