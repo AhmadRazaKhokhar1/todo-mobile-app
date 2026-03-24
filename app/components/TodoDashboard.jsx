@@ -78,6 +78,10 @@ const createStyles = (palette) =>
     composerRow: {
       gap: 12,
     },
+    composerRowWide: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
     composerActions: {
       flexDirection: "row",
       justifyContent: "flex-end",
@@ -108,6 +112,9 @@ const createStyles = (palette) =>
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: palette.accent,
+    },
+    buttonWide: {
+      alignSelf: "center",
     },
     buttonCompact: {
       width: "100%",
@@ -239,7 +246,7 @@ export default function TodoDashboard({
 
       <View style={styles.composer}>
         <Text style={styles.composerTitle}>Create a new task pulse</Text>
-        <View style={styles.composerRow}>
+        <View style={[styles.composerRow, !isCompactLayout && styles.composerRowWide]}>
           <TextInput
             value={todo}
             onChangeText={setTodo}
@@ -250,7 +257,7 @@ export default function TodoDashboard({
           />
           <View style={[styles.composerActions, isCompactLayout && styles.composerActionsCompact]}>
             <Pressable
-              style={[styles.button, isCompactLayout && styles.buttonCompact]}
+              style={[styles.button, !isCompactLayout && styles.buttonWide, isCompactLayout && styles.buttonCompact]}
               onPress={onAddTodo}
               disabled={isSubmitting}
             >
