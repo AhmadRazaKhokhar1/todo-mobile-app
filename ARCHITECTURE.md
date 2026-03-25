@@ -16,6 +16,7 @@ This repository uses a feature-layered React Native (Expo) architecture with cle
 
 - `App.js` wires `ThemeProvider` and `AppNavigator`.
 - `AppNavigator` owns `NavigationContainer` and frame-level shell composition.
+- `AppShell` owns shared application chrome (navbar, routed screen content slot, and global footer).
 - `RootNavigator` defines screen registration and route graph.
 - `routes` is the single source of truth for app route metadata.
 - `Home` binds `useTodos` data/actions into `TodoDashboard` props.
