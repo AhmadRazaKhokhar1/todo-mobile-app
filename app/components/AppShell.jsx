@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     borderTopWidth: 1,
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 18,
     alignItems: "center",
     justifyContent: "center",
